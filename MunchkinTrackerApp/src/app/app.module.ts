@@ -10,6 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SignalRModule } from 'ng2-signalr';
+import { SignalRConfiguration } from 'ng2-signalr';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
   imports: [
     BrowserModule,
     HttpModule,
+    SignalRModule.forRoot(createConfig),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -35,8 +38,19 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     InterceptorService
   ]
 })
-export class AppModule {}
+export class AppModule { }
+
+export function createConfig(): SignalRConfiguration {
+  const c = new SignalRConfiguration();
+  c.hubName = 'TestHub';
+  // c.qs = { user: 'vgk' };
+  c.withCredentials = false;
+  c.jsonp = true;
+  c.url = 'http://localhost:55787';
+  c.logging = true;
+  return c;
+}
