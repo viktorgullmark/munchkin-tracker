@@ -1,16 +1,15 @@
-import { PlayerModel } from '../models/player.model';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
-import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
-import { InterceptorProvider } from '../providers/interceptor/interceptor';
-import { Component, OnInit } from '@angular/core';
+
+import { Component } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Platform } from 'ionic-angular';
+import { SignalR } from 'ng2-signalr';
 import { Observable } from 'rxjs/Observable';
-import { SignalR, BroadcastEventListener } from 'ng2-signalr';
-import { TestModel } from '../models/test.model';
-import * as $ from 'jquery';
+
+import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
+import { InterceptorProvider } from '../providers/interceptor/interceptor';
 
 @Component({
   templateUrl: 'app.html'
@@ -33,48 +32,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
-      this.testCors().subscribe(res => {
-        console.log(res);
-      });
-
-      this.testSignalR();
     });
-  }
-
-  public testCors() {
-    return this.interceptorProvider.get('api/Games/1').map(res => {
-      return res;
-    }).catch(error => {
-      return Observable.of(error);
-    });
-  }
-
-  public testSignalR() {
-    this._signalR.connect().then((c) => {
-      console.log('connected');
-
-      // // 1.create a listener object
-      // let onMessageSent$ = new BroadcastEventListener<TestModel>('NewMessage');
-
-      // // 2.register the listener
-      // c.listen(onMessageSent$);
-
-      // // 3.subscribe for incoming messages
-      // onMessageSent$.subscribe((testMessage: TestModel) => {
-      //   this.testMessages.push(testMessage);
-      //   console.log(this.testMessages);
-      // });
-
-
-
-      // // invoke a server side method, with parameters
-      // c.invoke('TestMessage', 'test').then((data) => {
-      //   console.log('invoked');
-      // });
-    });
-  }
-
-  ngOnInit() {
   }
 }

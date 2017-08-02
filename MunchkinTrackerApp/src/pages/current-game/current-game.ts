@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { PlayerDetailsPage } from '../player-details/player-details';
+
 import { GameProvider } from '../../providers/game/game';
-import { GameModel } from '../../models/game.model';
+import { PlayerDetailsPage } from '../player-details/player-details';
 
 @Component({
   selector: 'page-current-game',
@@ -20,8 +20,9 @@ export class CurrentGamePage {
     console.log(this.gameProvider.currentGame.players);
   }
   goToCurrentPlayer(player){
+    this.gameProvider.currentPlayer = player;
     this.navCtrl.push(PlayerDetailsPage, {
-        'player': player
+        'gameCode': this.gameName
     });
   }
 }

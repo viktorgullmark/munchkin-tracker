@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
     <ion-title>
-      {{player.name}}
+      {{gameProvider.currentPlayer.name}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,19 +14,19 @@
   <form>
     <ion-item text-center>
       <h3>Level</h3>
-      <ion-icon name="remove" class="icon-left" (click)="player.level = player.level - 1"></ion-icon>
-      <span style="text-align:center;">{{player.level}}</span>
-      <ion-icon name="add" class="icon-right" (click)="player.level = player.level + 1"></ion-icon>
+      <ion-icon name="remove" class="icon-left" (click)="changeLevel(gameProvider.currentPlayer.level-1)"></ion-icon>
+      <span style="text-align:center;">{{gameProvider.currentPlayer.level}}</span>
+      <ion-icon name="add" class="icon-right" (click)="changeLevel(gameProvider.currentPlayer.level+1)"></ion-icon>
     </ion-item>
     <ion-item text-center>
       <h3>Bonus</h3>
-      <ion-icon name="remove" class="icon-left" (click)="player.bonus = player.bonus - 1"></ion-icon>
-      <span style="text-align:center;">{{player.bonus}}</span>
-      <ion-icon name="add" class="icon-right" (click)="player.bonus = player.bonus + 1"></ion-icon>
+      <ion-icon name="remove" class="icon-left" (click)="changeBonus(gameProvider.currentPlayer.bonus-1)"></ion-icon>
+      <span style="text-align:center;">{{gameProvider.currentPlayer.bonus}}</span>
+      <ion-icon name="add" class="icon-right" (click)="changeBonus(gameProvider.currentPlayer.bonus+1)"></ion-icon>
     </ion-item>
     <ion-item no-lines text-center>
       <h3>Total</h3>
-      <span>{{player.level + player.bonus}}</span>
+      <span>{{gameProvider.currentPlayer.level + gameProvider.currentPlayer.bonus}}</span>
     </ion-item>
   </form>
 </ion-content>

@@ -1,12 +1,12 @@
-import { JoinModel } from '../../models/join.model';
-import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { CurrentGamePage } from '../current-game/current-game';
-import { PlayerDetailsPage } from '../player-details/player-details';
-import { GameProvider } from '../../providers/game/game';
-import { GameModel } from '../../models/game.model';
-import { PlayerModel } from '../../models/player.model';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NavController } from 'ionic-angular';
+
+import { GameModel } from '../../models/game.model';
+import { JoinModel } from '../../models/join.model';
+import { PlayerModel } from '../../models/player.model';
+import { GameProvider } from '../../providers/game/game';
+import { CurrentGamePage } from '../current-game/current-game';
 
 @Component({
   selector: 'page-games',

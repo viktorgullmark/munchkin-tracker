@@ -9,6 +9,7 @@ using System.Web.Http.Cors;
 using MunchkinTrackerApi.Models;
 using MunchkinTrackerBackend;
 using MunchkinTrackerBackend.Services;
+using MunchkinTrackerBackend.Entities;
 
 namespace MunchkinTrackerApi.Controllers
 {
@@ -24,31 +25,9 @@ namespace MunchkinTrackerApi.Controllers
 
         [HttpGet]
         [Route("Create")]
-        public async Task<GameModel> Create()
+        public async Task<Game> Create()
         {
-            var game = await _gameService.CreateGame();
-            return new GameModel()
-            {
-                Code = game.Code
-            };
+            return await _gameService.CreateGame();
         }
-
-        //public async Task<tblGame> Get(int id)
-        //{
-        //    var game = await _gameService.GetGameById(id);
-        //    return game;
-        //}
-
-        //public async void Post([FromBody]string value)
-        //{
-        //}
-
-        //public async void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //public async void Delete(int id)
-        //{
-        //}
     }
 }
