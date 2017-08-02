@@ -1,7 +1,8 @@
+import { PlayerModel } from '../models/player.model';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
-import { TabsPage } from '../pages/tabs/tabs';
-import { InterceptorService } from '../services/interceptor-service/interceptor.service';
+import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
+import { InterceptorProvider } from '../providers/interceptor/interceptor';
 import { Component, OnInit } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,7 +16,7 @@ import * as $ from 'jquery';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any = TabsControllerPage;
 
   // An internal "copy" of the connection state stream used because
   //  we want to map the values of the original stream. If we didn't 
@@ -24,9 +25,9 @@ export class MyApp {
   //   
   connectionState$: Observable<string>;
 
-  testMessages: any[] = [];
+  players: any[] = [];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private interceptorService: InterceptorService, private _signalR: SignalR) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private interceptorProvider: InterceptorProvider, private _signalR: SignalR) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -42,7 +43,7 @@ export class MyApp {
   }
 
   public testCors() {
-    return this.interceptorService.get('api/Games/1').map(res => {
+    return this.interceptorProvider.get('api/Games/1').map(res => {
       return res;
     }).catch(error => {
       return Observable.of(error);
@@ -53,22 +54,24 @@ export class MyApp {
     this._signalR.connect().then((c) => {
       console.log('connected');
 
-      // 1.create a listener object
-      let onMessageSent$ = new BroadcastEventListener<TestModel>('NewMessage');
+      // // 1.create a listener object
+      // let onMessageSent$ = new BroadcastEventListener<TestModel>('NewMessage');
 
-      // 2.register the listener
-      c.listen(onMessageSent$);
+      // // 2.register the listener
+      // c.listen(onMessageSent$);
 
-      // 3.subscribe for incoming messages
-      onMessageSent$.subscribe((testMessage: TestModel) => {
-        this.testMessages.push(testMessage);
-        console.log(this.testMessages);
-      });
+      // // 3.subscribe for incoming messages
+      // onMessageSent$.subscribe((testMessage: TestModel) => {
+      //   this.testMessages.push(testMessage);
+      //   console.log(this.testMessages);
+      // });
 
-      // invoke a server side method, with parameters
-      c.invoke('TestMessage', 'test').then((data) => {
-        console.log('invoked');
-      });
+
+
+      // // invoke a server side method, with parameters
+      // c.invoke('TestMessage', 'test').then((data) => {
+      //   console.log('invoked');
+      // });
     });
   }
 

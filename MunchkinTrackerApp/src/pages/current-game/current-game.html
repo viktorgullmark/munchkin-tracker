@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      {{gameName}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <button *ngFor="let player of gameProvider.currentGame.players" ion-button color="positive" block icon-left (click)="goToCurrentPlayer(player)">
+    <ion-icon name="person"></ion-icon>
+    {{player.name}}
+  </button>
+</ion-content>

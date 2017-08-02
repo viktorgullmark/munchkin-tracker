@@ -1,4 +1,4 @@
-export class TestModel {
+export interface TestModel {
     name: string;
     message: string;
 }

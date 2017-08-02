@@ -30,15 +30,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CachingFramework.Redis, Version=7.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CachingFramework.Redis.7.2.0\lib\net45\CachingFramework.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.2.1\lib\net45\StackExchange.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -49,61 +59,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\tblGame.cs" />
-    <Compile Include="DbContexts\MunchkinTrackerDbContext.cs" />
-    <Compile Include="Interfaces\IBaseEntity.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="MunchkinTrackerModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MunchkinTrackerModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MunchkinTrackerModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MunchkinTrackerModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MunchkinTrackerModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MunchkinTrackerModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Entities\Game.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Helpers\GameHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\TblGameRepository.cs" />
     <Compile Include="Services\GameService.cs" />
-    <Compile Include="tblGame.cs">
-      <DependentUpon>MunchkinTrackerModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <EntityDeploy Include="MunchkinTrackerModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MunchkinTrackerModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="MunchkinTrackerModel.edmx.diagram">
-      <DependentUpon>MunchkinTrackerModel.edmx</DependentUpon>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MunchkinTrackerModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MunchkinTrackerModel.edmx</DependentUpon>
-      <LastGenOutput>MunchkinTrackerModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="MunchkinTrackerModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MunchkinTrackerModel.edmx</DependentUpon>
-      <LastGenOutput>MunchkinTrackerModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

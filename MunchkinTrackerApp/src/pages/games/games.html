@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Games
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div [hidden]="isInGame">
+    <h4>Join game</h4>
+    <form [formGroup]="joinForm">
+      <ion-item no-padding padding-bottom>
+        <ion-label>
+          Gamecode
+        </ion-label>
+        <ion-input type="text" placeholder="####" name="gameCode" formControlName="gameCode"></ion-input>
+      </ion-item>
+      <ion-item no-padding padding-bottom>
+        <ion-label>
+          Player
+        </ion-label>
+        <ion-input type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
+      </ion-item>
+      <div class="row">
+        <button ion-button color="positive" block (click)="enterGame()">
+        Join
+      </button>
+      </div>
+    </form>
+    <h4>Create new game</h4>
+    <form [formGroup]="createForm">
+      <ion-item no-padding padding-bottom>
+        <ion-label>
+          Player
+        </ion-label>
+        <ion-input type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
+      </ion-item>
+      <div class="row">
+        <button ion-button color="positive" block (click)="createGame()">
+        Create
+    </button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="isInGame && gameProvider.currentGame !== undefined" class="row">
+    <h4>Current game: {{gameProvider.currentGame.code}}</h4>
+    <button ion-button color="positive" block (click)="leaveGame()">
+        Leave
+      </button>
+  </div>
+</ion-content>
