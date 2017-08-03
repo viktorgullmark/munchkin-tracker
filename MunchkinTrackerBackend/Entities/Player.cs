@@ -14,8 +14,12 @@ namespace MunchkinTrackerBackend.Entities
 
         public string Name { get; set; }
 
+        public string Flavor { get; set; }
+
         public int Level { get; set; }
 
         public int Bonus { get; set; }
+
+        public string Gender { get; set; }
     }
 }

@@ -45,7 +45,7 @@ namespace MunchkinTrackerApi.Hubs
                 Clients.Client(Context.ConnectionId).ErrorMessage("Name already taken");
                 return null;
             }
-            await _gameService.AddPlayer(model.Player.Name, Context.ConnectionId, model.GameCode);
+            await _gameService.AddPlayer(model.Player, Context.ConnectionId, model.GameCode);
             await Groups.Add(Context.ConnectionId, model.GameCode);
             PlayerJoined(model.GameCode, model.Player);
 
@@ -53,13 +53,13 @@ namespace MunchkinTrackerApi.Hubs
             return await _gameService.GetPlayersByCode(model.GameCode);    
         }
 
-        public async Task LeaveGame(JoinModel model)
+        public async Task LeaveGame(string gameCode)
         {   
-            await _gameService.RemovePlayer(Context.ConnectionId, model.GameCode);
-            PlayerLeft(model.GameCode, model.Player);
+            var player = await _gameService.RemovePlayer(Context.ConnectionId, gameCode);
+            PlayerLeft(gameCode, player);
             try
             {
-                await Groups.Remove(Context.ConnectionId, model.GameCode);
+                await Groups.Remove(Context.ConnectionId, gameCode);
             }
             catch (TaskCanceledException e)
             {

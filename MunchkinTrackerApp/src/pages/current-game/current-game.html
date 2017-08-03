@@ -1,18 +1,39 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <ion-buttons start>
       <button ion-button icon-only>
         <ion-icon name="person"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
-      {{gameName}}
+      {{gameProvider.currentGame.code}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <button *ngFor="let player of gameProvider.currentGame.players" ion-button color="positive" block icon-left (click)="goToCurrentPlayer(player)">
-    <ion-icon name="person"></ion-icon>
-    {{player.name}}
-  </button>
+  <ion-card *ngFor="let player of gameProvider.currentGame.players" (click)="goToCurrentPlayer(player)">
+    <ion-item>
+      <ion-avatar item-start>
+        <ion-icon center text-center name="{{ player.gender | lowercase }}" class="avatar-icon" [ngClass]="{'avatar-female': player.gender == 'Female', 'avatar-male': player.gender == 'Male'}"></ion-icon>
+      </ion-avatar>
+      <h2>{{player.name}}</h2>
+      <p>{{player.flavor}}</p>
+    </ion-item>
+    <ion-row>
+      <ion-col center text-center>
+        <div>Level: {{player.level}}</div>
+      </ion-col>
+      <ion-col center text-center>
+        <div>Bonus: {{player.bonus}}</div>
+      </ion-col>
+      <ion-col center text-center>
+        <div>Total: {{player.level + player.bonus}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>
+<ion-footer no-shadow>
+  <ion-toolbar position="bottom">
+    <button ion-button full (click)="leaveGame()">Leave game</button>
+  </ion-toolbar>
+</ion-footer>

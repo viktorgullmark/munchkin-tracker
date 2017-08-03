@@ -1,3 +1,15 @@
-page-game {
-
+page-current-game {
+    .avatar-icon{
+        font-size: 2.0em;
+    }
+    .avatar-female{
+        color: #e698b8;
+    }
+    .avatar-male{
+        color: #23a2ff;
+    }
+    ion-row{
+        border-top: 1px solid #efefef;
+        background: #fbfbfb;
+    }
 }

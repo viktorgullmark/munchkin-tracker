@@ -1,14 +1,14 @@
-import { GamesPage } from '../../pages/games/games';
-import { PlayerModel } from '../../models/player.model';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { GameModel } from '../../models/game.model';
-import { InterceptorProvider } from '../interceptor/interceptor';
+
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { SignalR, ISignalRConnection, BroadcastEventListener } from 'ng2-signalr';
 import { AlertController } from 'ionic-angular';
+import { BroadcastEventListener, ISignalRConnection, SignalR } from 'ng2-signalr';
+
+import { GameModel } from '../../models/game.model';
+import { PlayerModel } from '../../models/player.model';
+import { InterceptorProvider } from '../interceptor/interceptor';
 
 @Injectable()
 export class GameProvider {
@@ -50,7 +50,9 @@ export class GameProvider {
         if (index !== -1) {
           this.currentGame.players[index] = player;
         }
-        this.currentPlayer = player;
+        if (this.currentPlayer.name == player.name) {
+          this.currentPlayer = player;
+        }
       });
       onErrorReceived$.subscribe((message: string) => {
         console.log(message);
@@ -77,9 +79,9 @@ export class GameProvider {
   }
 
   public leaveGame() {
-    let model = { gameCode: this.currentGame.code, player: this.currentPlayer };
-    return this.connection.invoke('LeaveGame', model).then((data) => {
+    return this.connection.invoke('LeaveGame', this.currentGame.code).then((data) => {
     }).catch(error => console.log(error));
+
   }
 
   public updatePlayer(model) {

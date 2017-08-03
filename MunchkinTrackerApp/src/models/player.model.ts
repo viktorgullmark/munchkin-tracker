@@ -3,4 +3,6 @@ export interface PlayerModel {
     name: string;
     level: number;
     bonus: number;
+    flavor: string;
+    gender: string;
 }

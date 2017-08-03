@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Create new game</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="createForm">
+    <ion-item no-padding padding-bottom>
+      <ion-label>
+        Player
+      </ion-label>
+      <ion-input text-right type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
+    </ion-item>
+    <ion-item no-padding padding-bottom>
+      <ion-label>
+        Flavor text
+      </ion-label>
+      <ion-input text-right type="text" placeholder="The Kinslayer!" name="flavorText" formControlName="flavorText"></ion-input>
+    </ion-item>
+    <ion-item no-padding padding-bottom>
+      <ion-label>Gender</ion-label>
+      <ion-select name="gender" formControlName="gender" interface="popover">
+        <ion-option value="Male">Male</ion-option>
+        <ion-option value="Female">Female</ion-option>
+      </ion-select>
+    </ion-item>
+    <div class="row">
+      <button ion-button color="positive" block (click)="createGame()">
+        Create
+    </button>
+    </div>
+  </form>
+</ion-content>

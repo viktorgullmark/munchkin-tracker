@@ -1,3 +1,5 @@
+import { NewGamePage } from '../pages/new-game/new-game';
+import { JoinGamePage } from '../pages/join-game/join-game';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +10,7 @@ import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
 
 import { CurrentGamePage } from '../pages/current-game/current-game';
-import { GamesPage } from '../pages/games/games';
+import { StartPage } from '../pages/start/start';
 import { PlayerDetailsPage } from '../pages/player-details/player-details';
 import { SettingsPage } from '../pages/settings/settings';
 import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
@@ -19,9 +21,11 @@ import { MyApp } from './app.component';
 @NgModule({
   declarations: [
     MyApp,
-    GamesPage,
+    StartPage,
     CurrentGamePage,
     SettingsPage,
+    JoinGamePage,
+    NewGamePage,
     TabsControllerPage,
     PlayerDetailsPage
   ],
@@ -34,9 +38,11 @@ import { MyApp } from './app.component';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    GamesPage,
+    StartPage,
     CurrentGamePage,
     SettingsPage,
+    JoinGamePage,
+    NewGamePage,
     TabsControllerPage,
     PlayerDetailsPage
   ],

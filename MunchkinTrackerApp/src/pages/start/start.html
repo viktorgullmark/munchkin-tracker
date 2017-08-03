@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Start
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div class="row">
+    <button ion-button color="positive" block (click)="joinExisting()">
+        Join existing game
+    </button>
+  </div>
+  <div class="row">
+    <button ion-button color="positive" block (click)="createNew()">
+        Create new game
+    </button>
+  </div>
+</ion-content>
