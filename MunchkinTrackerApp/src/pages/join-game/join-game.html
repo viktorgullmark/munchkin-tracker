@@ -4,37 +4,35 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="page-content">
   <form [formGroup]="joinForm">
-    <ion-item no-padding padding-bottom>
+    <ion-item>
       <ion-label>
         Gamecode
       </ion-label>
       <ion-input text-right type="text" placeholder="#####" name="gameCode" formControlName="gameCode" (ionChange)="$event.value = $event.value.toLocaleUpperCase()"></ion-input>
     </ion-item>
-    <ion-item no-padding padding-bottom>
+    <ion-item>
       <ion-label>
         Player
       </ion-label>
       <ion-input text-right type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
     </ion-item>
-    <ion-item no-padding padding-bottom>
+    <ion-item>
       <ion-label>
         Flavor text
       </ion-label>
       <ion-input text-right type="text" placeholder="The Kinslayer!" name="flavorText" formControlName="flavorText"></ion-input>
     </ion-item>
-    <ion-item no-padding padding-bottom>
+    <ion-item>
       <ion-label>Gender</ion-label>
       <ion-select name="gender" formControlName="gender" interface="popover">
         <ion-option value="Male">Male</ion-option>
         <ion-option value="Female">Female</ion-option>
       </ion-select>
     </ion-item>
-    <div class="row">
-      <button ion-button color="positive" block (click)="enterGame()">
+    <button ion-button color="positive" block (click)="enterGame()">
         Join
-      </button>
-    </div>
+    </button>
   </form>
 </ion-content>

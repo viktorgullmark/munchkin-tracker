@@ -4,21 +4,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="page-content">
   <form [formGroup]="createForm">
-    <ion-item no-padding padding-bottom>
+    <ion-item>
       <ion-label>
         Player
       </ion-label>
       <ion-input text-right type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
     </ion-item>
-    <ion-item no-padding padding-bottom>
+    <ion-item>
       <ion-label>
         Flavor text
       </ion-label>
       <ion-input text-right type="text" placeholder="The Kinslayer!" name="flavorText" formControlName="flavorText"></ion-input>
     </ion-item>
-    <ion-item no-padding padding-bottom>
+    <ion-item>
       <ion-label>Gender</ion-label>
       <ion-select name="gender" formControlName="gender" interface="popover">
         <ion-option value="Male">Male</ion-option>

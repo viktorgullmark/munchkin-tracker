@@ -10,7 +10,7 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content padding class="page-content">
   <ion-card *ngFor="let player of gameProvider.currentGame.players" (click)="goToCurrentPlayer(player)">
     <ion-item>
       <ion-avatar item-start>

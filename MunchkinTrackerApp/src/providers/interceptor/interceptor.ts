@@ -11,7 +11,7 @@ export class InterceptorProvider {
     public baseUrl: string;
 
     constructor(private http: Http) {
-        this.baseUrl = 'http://localhost:55787/';
+        this.baseUrl = 'http://munchkintracker.westeurope.cloudapp.azure.com:1337/';
     }
 
     // generic GET-request
