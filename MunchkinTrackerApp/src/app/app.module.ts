@@ -61,7 +61,7 @@ export function createConfig(): SignalRConfiguration {
   c.hubName = 'GameHub';
   c.withCredentials = false;
   c.jsonp = true;
-  c.url = 'http://munchkintracker.westeurope.cloudapp.azure.com:1337';
+  c.url = 'http://localhost:55787/';
   c.logging = true;
   return c;
 }

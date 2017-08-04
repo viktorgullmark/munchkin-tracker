@@ -67,6 +67,7 @@ namespace MunchkinTrackerApi.Hubs
                 // thrown
             }
         }
+
         public void UpdatePlayer(JoinModel model)
         {
             LevelChanged(model.GameCode, model.Player);

@@ -1,8 +1,29 @@
 page-player-details {
     .icon-left{
-        float:left;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 20px 80px 20px 20px;
     }
     .icon-right{
-        float:right;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 20px 20px 20px 80px;
+    }
+    .player-swipe{
+        font-size: 1.8rem;
+        color: #f1f1f1; 
+        button{
+            width: 125px;
+        }
+    }
+    .col{
+        padding-right:0;
+        padding-left: 0;
+    }
+    .grid{
+        padding-right:0;
+        padding-left:0;
     }
 }

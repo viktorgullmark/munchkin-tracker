@@ -29,4 +29,19 @@
       <span>{{gameProvider.currentPlayer.level + gameProvider.currentPlayer.bonus}}</span>
     </ion-item>
   </form>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="player-swipe" text-left>
+        <button ion-button (click)="goToPrevious()" *ngIf="gameProvider.previousPlayer !== undefined && gameProvider.currentGame.players.length > 2">
+          <ion-icon name="arrow-back"></ion-icon><span>&nbsp;&nbsp;&nbsp;{{gameProvider.previousPlayer.name}}</span>
+        </button>
+      </ion-col>
+      <ion-col class="player-swipe" text-right>
+        <button ion-button (click)="goToNext()" *ngIf="gameProvider.nextPlayer !== undefined">
+          <span>{{gameProvider.nextPlayer.name}}&nbsp;&nbsp;&nbsp;</span>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

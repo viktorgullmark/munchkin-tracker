@@ -15,6 +15,8 @@ export class GameProvider {
 
   currentGame: GameModel;
   currentPlayer: PlayerModel;
+  previousPlayer: PlayerModel;
+  nextPlayer: PlayerModel;
   private url: string;
   private connection: ISignalRConnection;
 
@@ -37,11 +39,14 @@ export class GameProvider {
 
       onPlayerJoined$.subscribe((player: PlayerModel) => {
         this.currentGame.players.push(player);
-        console.log(this.currentGame.players);
-        console.log(player.name + " joined");
+        this.updatePreviousNext();
       });
       onPlayerLeft$.subscribe((player: PlayerModel) => {
         this.currentGame.players = this.currentGame.players.filter(item => item.name !== player.name);
+        if (this.currentPlayer.name === player.name) {
+          this.currentPlayer = this.currentGame.players[0];
+        } 
+        this.updatePreviousNext();
       });
       onLevelChanged$.subscribe((player: PlayerModel) => {
         // update playerinfo with new score
@@ -65,7 +70,18 @@ export class GameProvider {
       });
     });
   }
-
+  public updatePreviousNext() {
+    if (this.currentGame.players[this.currentGame.players.indexOf(this.currentPlayer) - 1] !== undefined) {
+      this.previousPlayer = this.currentGame.players[this.currentGame.players.indexOf(this.currentPlayer) - 1];
+    } else if (this.currentGame.players.length > 1) {
+      this.previousPlayer = this.currentGame.players[this.currentGame.players.length - 1];
+    }
+    if (this.currentGame.players[this.currentGame.players.indexOf(this.currentPlayer) + 1] !== undefined) {
+      this.nextPlayer = this.currentGame.players[this.currentGame.players.indexOf(this.currentPlayer) + 1];
+    } else if (this.currentGame.players.length > 1) {
+      this.nextPlayer = this.currentGame.players[0];
+    }
+  }
   public createGame() {
     return this.connection.invoke('CreateGame').then((data) => {
       return data;
@@ -81,7 +97,11 @@ export class GameProvider {
   public leaveGame() {
     return this.connection.invoke('LeaveGame', this.currentGame.code).then((data) => {
     }).catch(error => console.log(error));
+  }
 
+  public kickPlayer(player, gameCode) {
+    return this.connection.invoke('KickPlayer', player, gameCode).then((data) => {
+    }).catch(error => console.log(error));
   }
 
   public updatePlayer(model) {

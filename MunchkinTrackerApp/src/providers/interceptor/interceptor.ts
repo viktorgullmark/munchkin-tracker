@@ -11,7 +11,7 @@ export class InterceptorProvider {
     public baseUrl: string;
 
     constructor(private http: Http) {
-        this.baseUrl = 'http://munchkintracker.westeurope.cloudapp.azure.com:1337/';
+        this.baseUrl = 'http://localhost:55787/';
     }
 
     // generic GET-request
@@ -55,12 +55,6 @@ export class InterceptorProvider {
 
         headers.append('Access-Control-Allow-Origin', 'true');
         headers.append('Content-Type', 'application/json');
-
-        // if token exists, append it to authorization-header 
-        if (localStorage.getItem('token') !== null) {
-            headers.append('Authorization', 'Bearer ' +
-                JSON.parse(localStorage.getItem('token')).accessToken);
-        }
 
         // in-case of specific request; ignore headers and use parameter instead
         options = options || { headers: headers };
