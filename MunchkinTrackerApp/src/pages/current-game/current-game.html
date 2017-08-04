@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar hideBackButton="true">
+  <ion-navbar hideBackButton="true" color="nav-bg">
     <ion-buttons start>
       <button ion-button icon-only>
         <ion-icon name="person"></ion-icon>
@@ -11,29 +11,31 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding class="page-content">
-  <ion-card *ngFor="let player of gameProvider.currentGame.players" (click)="goToCurrentPlayer(player)">
-    <ion-item>
-      <ion-avatar item-start>
-        <ion-icon center text-center name="{{ player.gender | lowercase }}" class="avatar-icon" [ngClass]="{'avatar-female': player.gender == 'Female', 'avatar-male': player.gender == 'Male'}"></ion-icon>
-      </ion-avatar>
-      <h2>{{player.name}}</h2>
-      <p>{{player.flavor}}</p>
-    </ion-item>
-    <ion-row>
-      <ion-col center text-center>
-        <div>Level: {{player.level}}</div>
-      </ion-col>
-      <ion-col center text-center>
-        <div>Bonus: {{player.bonus}}</div>
-      </ion-col>
-      <ion-col center text-center>
-        <div>Total: {{player.level + player.bonus}}</div>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
+    <ion-card *ngFor="let player of gameProvider.currentGame.players" (click)="goToCurrentPlayer(player)">
+      <ion-item>
+        <ion-avatar item-start>
+          <ion-icon center text-center name="{{ player.gender | lowercase }}" class="avatar-icon" [ngClass]="{'avatar-female': player.gender == 'Female', 'avatar-male': player.gender == 'Male'}"></ion-icon>
+        </ion-avatar>
+        <h2>{{player.name}}</h2>
+        <p>{{player.flavor}}</p>
+      </ion-item>
+      <ion-row>
+        <ion-col center text-center>
+          <div>Level: {{player.level}}</div>
+        </ion-col>
+        <ion-col center text-center>
+          <div>Bonus: {{player.bonus}}</div>
+        </ion-col>
+        <ion-col center text-center>
+          <div>Total: {{player.level + player.bonus}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
 </ion-content>
 <ion-footer no-shadow>
-  <ion-toolbar position="bottom">
+  <ion-toolbar position="bottom" color="nav-bg">
     <button ion-button full (click)="leaveGame()">Leave game</button>
   </ion-toolbar>
 </ion-footer>

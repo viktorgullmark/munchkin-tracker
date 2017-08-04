@@ -40,7 +40,7 @@ namespace MunchkinTrackerBackend.Repositories
 
         public async Task Insert(Game game)
         {
-            await _context.Cache.SetObjectAsync($"game:{game.Code}", game, TimeSpan.FromHours(2));
+            await _context.Cache.SetObjectAsync($"game:{game.Code}", game, TimeSpan.FromHours(1));
         }
 
         public async Task Delete(Game game)
@@ -50,7 +50,7 @@ namespace MunchkinTrackerBackend.Repositories
 
         public async Task Update(Game game)
         {
-            await _context.Cache.SetObjectAsync($"game:{game.Code}", game, TimeSpan.FromHours(2));
+            await _context.Cache.SetObjectAsync($"game:{game.Code}", game, TimeSpan.FromHours(1));
         }
     }
 }

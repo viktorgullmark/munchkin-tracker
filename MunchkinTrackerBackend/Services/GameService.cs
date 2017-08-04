@@ -30,6 +30,19 @@ namespace MunchkinTrackerBackend.Services
             return await GameRepo.FindPlayersByCode(gameCode);
         }
 
+        public async Task UpdatePlayer(Player player, string gameCode)
+        {
+            var game = await GameRepo.FindByCode(gameCode);
+
+            var foundPlayer = game.Players.FirstOrDefault(x => x.Name == player.Name);
+            var index = game.Players.IndexOf(foundPlayer);
+
+            if (index != -1)
+                game.Players[index] = player;
+
+            await GameRepo.Update(game);
+        }
+
         public async Task<bool> IsNameTaken(string playerName, string gameCode)
         {
             return await GameRepo.NameTaken(playerName, gameCode);

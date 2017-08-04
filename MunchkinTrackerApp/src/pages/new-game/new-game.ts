@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { NavController, NavParams, Tabs } from 'ionic-angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NavController, AlertController, NavParams, Tabs } from 'ionic-angular';
 
 import { GameModel } from '../../models/game.model';
 import { JoinModel } from '../../models/join.model';
@@ -14,15 +14,26 @@ import { CurrentGamePage } from '../current-game/current-game';
 })
 export class NewGamePage {
   createForm: FormGroup;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public gameProvider: GameProvider) {
+  submitAttempt: boolean = false;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, public gameProvider: GameProvider) {
     this.createForm = new FormGroup({
-      playerName: new FormControl(''),
-      flavorText: new FormControl(''),
-      gender: new FormControl('')
+      playerName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(20)]),
+      flavorText: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(20)]),
+      gender: new FormControl('', Validators.required)
     });
   }
 
   createGame() {
+    this.submitAttempt = true;
+    if (!this.createForm.valid) {
+      return;
+    }
     if (this.gameProvider.currentGame !== undefined) {
       this.gameProvider.leaveGame().then(() => { });
     }

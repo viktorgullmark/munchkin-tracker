@@ -19,6 +19,7 @@ namespace MunchkinTrackerApi.Hubs
 
         public void LevelChanged(string gameCode, Player player)
         {
+
             Clients.OthersInGroup(gameCode).LevelChanged(player);
         }
 

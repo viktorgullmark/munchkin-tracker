@@ -4,8 +4,8 @@ import { JoinModel } from '../../models/join.model';
 import { CurrentGamePage } from '../current-game/current-game';
 import { GameProvider } from '../../providers/game/game';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { NavController, NavParams, Tabs } from 'ionic-angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NavController, AlertController, NavParams, Tabs } from 'ionic-angular';
 
 @Component({
   selector: 'page-join-game',
@@ -13,15 +13,30 @@ import { NavController, NavParams, Tabs } from 'ionic-angular';
 })
 export class JoinGamePage {
   joinForm: FormGroup;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public gameProvider: GameProvider) {
+  errors: any[];
+  submitAttempt: boolean = false;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, public gameProvider: GameProvider) {
     this.joinForm = new FormGroup({
-      gameCode: new FormControl(''),
-      playerName: new FormControl(''),
-      flavorText: new FormControl(''),
-      gender: new FormControl('')
+      gameCode: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(5)]),
+      playerName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(20)]),
+      flavorText: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(20)]),
+      gender: new FormControl('', Validators.required)
     });
   }
   enterGame() {
+    this.submitAttempt = true;
+    if (!this.joinForm.valid) {
+      return;
+    }
     if (this.gameProvider.currentGame !== undefined) {
       this.gameProvider.leaveGame().then(() => { });
     }

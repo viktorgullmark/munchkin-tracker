@@ -18,5 +18,23 @@
 @import "./theme/variables";
 
 .page-content {
-    // background: $content-bg-color;
+    background: $content-bg-color;
+}
+
+.card {
+    margin: 0;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.alert-button {
+    color: black !important;
+}
+
+.invalid {
+    border: 1px solid #ea6153;
+}
+
+.error-text {
+    color: #d13636 !important;
 }

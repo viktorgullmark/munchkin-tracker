@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { StartPage } from '../start/start';
 import { CurrentGamePage } from '../current-game/current-game';
-import { SettingsPage } from '../settings/settings';
+import { AboutPage } from '../about/about';
 import { GameProvider } from '../../providers/game/game';
 import { Events } from 'ionic-angular';
 
@@ -13,7 +13,7 @@ import { Events } from 'ionic-angular';
 export class TabsControllerPage {
   tab1Root: any = StartPage;
   tab2Root: any = CurrentGamePage;
-  tab3Root: any = SettingsPage;
+  tab3Root: any = AboutPage;
   constructor(public events: Events, public navCtrl: NavController, public gameProvider: GameProvider) {
   }
   public onSelected(index: number): void {

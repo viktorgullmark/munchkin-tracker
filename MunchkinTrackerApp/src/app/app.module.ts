@@ -12,7 +12,7 @@ import { SignalRConfiguration } from 'ng2-signalr';
 import { CurrentGamePage } from '../pages/current-game/current-game';
 import { StartPage } from '../pages/start/start';
 import { PlayerDetailsPage } from '../pages/player-details/player-details';
-import { SettingsPage } from '../pages/settings/settings';
+import { AboutPage } from '../pages/about/about';
 import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
 import { GameProvider } from '../providers/game/game';
 import { InterceptorProvider } from '../providers/interceptor/interceptor';
@@ -23,7 +23,7 @@ import { MyApp } from './app.component';
     MyApp,
     StartPage,
     CurrentGamePage,
-    SettingsPage,
+    AboutPage,
     JoinGamePage,
     NewGamePage,
     TabsControllerPage,
@@ -40,7 +40,7 @@ import { MyApp } from './app.component';
     MyApp,
     StartPage,
     CurrentGamePage,
-    SettingsPage,
+    AboutPage,
     JoinGamePage,
     NewGamePage,
     TabsControllerPage,

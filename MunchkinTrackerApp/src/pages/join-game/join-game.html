@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="nav-bg">
     <ion-title>Join existing game</ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,7 +10,10 @@
       <ion-label>
         Gamecode
       </ion-label>
-      <ion-input text-right type="text" placeholder="#####" name="gameCode" formControlName="gameCode" (ionChange)="$event.value = $event.value.toLocaleUpperCase()"></ion-input>
+      <ion-input text-right type="text" id="gameCode" placeholder="#####" name="gameCode" formControlName="gameCode" (ionChange)="$event.value = $event.value.toLocaleUpperCase()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!joinForm.controls.gameCode.valid && (joinForm.controls.gameCode.dirty || submitAttempt)">
+      <p class="error-text">GameCode must be exactly 5 characters.</p>
     </ion-item>
     <ion-item>
       <ion-label>
@@ -18,11 +21,17 @@
       </ion-label>
       <ion-input text-right type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
     </ion-item>
+    <ion-item *ngIf="!joinForm.controls.playerName.valid && (joinForm.controls.playerName.dirty || submitAttempt)">
+      <p class="error-text">Name must be between 1 and 20 characters.</p>
+    </ion-item>
     <ion-item>
       <ion-label>
         Flavor text
       </ion-label>
       <ion-input text-right type="text" placeholder="The Kinslayer!" name="flavorText" formControlName="flavorText"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!joinForm.controls.flavorText.valid && (joinForm.controls.flavorText.dirty || submitAttempt)">
+      <p class="error-text">Text must be between 1 and 20 characters.</p>
     </ion-item>
     <ion-item>
       <ion-label>Gender</ion-label>
@@ -31,8 +40,14 @@
         <ion-option value="Female">Female</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item *ngIf="!joinForm.controls.gender.valid && (joinForm.controls.gender.dirty || submitAttempt)">
+      <p class="error-text">Must select a gender.</p>
+    </ion-item>
+
     <button ion-button color="positive" block (click)="enterGame()">
         Join
     </button>
+
   </form>
+
 </ion-content>

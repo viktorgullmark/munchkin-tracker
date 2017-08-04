@@ -1,16 +1,19 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="nav-bg">
     <ion-title>Create new game</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="page-content">
   <form [formGroup]="createForm">
-    <ion-item>
+     <ion-item>
       <ion-label>
         Player
       </ion-label>
       <ion-input text-right type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!createForm.controls.playerName.valid && (createForm.controls.playerName.dirty || submitAttempt)">
+      <p class="error-text">Name must be between 1 and 20 characters.</p>
     </ion-item>
     <ion-item>
       <ion-label>
@@ -18,12 +21,18 @@
       </ion-label>
       <ion-input text-right type="text" placeholder="The Kinslayer!" name="flavorText" formControlName="flavorText"></ion-input>
     </ion-item>
+    <ion-item *ngIf="!createForm.controls.flavorText.valid && (createForm.controls.flavorText.dirty || submitAttempt)">
+      <p class="error-text">Text must be between 1 and 20 characters.</p>
+    </ion-item>
     <ion-item>
       <ion-label>Gender</ion-label>
       <ion-select name="gender" formControlName="gender" interface="popover">
         <ion-option value="Male">Male</ion-option>
         <ion-option value="Female">Female</ion-option>
       </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!createForm.controls.gender.valid && (createForm.controls.gender.dirty || submitAttempt)">
+      <p class="error-text">Must select a gender.</p>
     </ion-item>
     <div class="row">
       <button ion-button color="positive" block (click)="createGame()">
