@@ -10,7 +10,7 @@
       <ion-label>
         Player
       </ion-label>
-      <ion-input text-right type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
+      <ion-input type="text" placeholder="Your name" name="playerName" formControlName="playerName"></ion-input>
     </ion-item>
     <ion-item *ngIf="!createForm.controls.playerName.valid && (createForm.controls.playerName.dirty || submitAttempt)">
       <p class="error-text">Name must be between 1 and 20 characters.</p>
@@ -19,7 +19,7 @@
       <ion-label>
         Flavor text
       </ion-label>
-      <ion-input text-right type="text" placeholder="The Kinslayer!" name="flavorText" formControlName="flavorText"></ion-input>
+      <ion-input type="text" placeholder="The Kinslayer!" name="flavorText" formControlName="flavorText"></ion-input>
     </ion-item>
     <ion-item *ngIf="!createForm.controls.flavorText.valid && (createForm.controls.flavorText.dirty || submitAttempt)">
       <p class="error-text">Text must be between 1 and 20 characters.</p>

@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -37,4 +36,21 @@
 
 .error-text {
     color: #d13636 !important;
+}
+
+ion-label {
+    min-width: 120px;
+    color: black !important;
+}
+
+ion-item {
+    background: $secondary-color !important;
+}
+
+ion-row {
+    background: $primary-color !important;
+}
+
+[placeholder]{
+    text-overflow:ellipsis;
 }
