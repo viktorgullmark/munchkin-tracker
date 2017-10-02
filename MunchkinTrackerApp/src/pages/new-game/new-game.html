@@ -6,7 +6,7 @@
 
 <ion-content padding class="page-content">
   <form [formGroup]="createForm">
-     <ion-item>
+    <ion-item>
       <ion-label>
         Player
       </ion-label>
@@ -35,8 +35,9 @@
       <p class="error-text">Must select a gender.</p>
     </ion-item>
     <div class="row">
-      <button ion-button color="positive" block (click)="createGame()">
+      <button ion-button icon-end color="positive" block (click)="createGame()">
         Create
+        <ion-icon name="add-circle" class="btn-icon"></ion-icon>
     </button>
     </div>
   </form>

@@ -47,8 +47,14 @@ ion-item {
     background: $secondary-color !important;
 }
 
-ion-row {
-    background: $primary-color !important;
+.btn-icon {
+    position: absolute !important;
+    right: 10px !important;
+}
+ion-card {
+    ion-row {
+        background: $primary-color !important;
+    }
 }
 
 [placeholder]{

@@ -31,13 +31,13 @@
   </form>
   <ion-grid>
     <ion-row>
-      <ion-col class="player-swipe" text-left>
-        <button ion-button (click)="goToPrevious()" *ngIf="gameProvider.previousPlayer !== undefined && gameProvider.currentGame.players.length > 2">
+      <ion-col class="player-swipe" text-left  *ngIf="gameProvider.previousPlayer !== undefined && gameProvider.currentGame.players.length > 2">
+        <button ion-button (click)="goToPrevious()">
           <ion-icon name="arrow-back"></ion-icon><span>&nbsp;&nbsp;&nbsp;{{gameProvider.previousPlayer.name}}</span>
         </button>
       </ion-col>
-      <ion-col class="player-swipe" text-right>
-        <button ion-button (click)="goToNext()" *ngIf="gameProvider.nextPlayer !== undefined">
+      <ion-col class="player-swipe" text-right *ngIf="gameProvider.nextPlayer !== undefined">
+        <button ion-button (click)="goToNext()" >
           <span>{{gameProvider.nextPlayer.name}}&nbsp;&nbsp;&nbsp;</span>
           <ion-icon name="arrow-forward"></ion-icon>
         </button>
