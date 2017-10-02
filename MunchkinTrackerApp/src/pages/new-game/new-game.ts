@@ -45,8 +45,8 @@ export class NewGamePage {
         flavor: this.createForm.controls.flavorText.value,
         gender: this.createForm.controls.gender.value,
         level: 1,
-        bonus: 1,
-        connectionId: ''
+        bonus: 0,
+        connectionId: localStorage.getItem('connectionId')
       } as PlayerModel;
       this.gameProvider.currentPlayer = player;
       this.gameProvider.currentGame = { code: res.code, players: [] } as GameModel;
@@ -58,9 +58,9 @@ export class NewGamePage {
               name: p.name,
               flavor: p.flavor,
               gender: p.gender,
-              level: 1,
-              bonus: 1,
-              connectionId: ''
+              level: p.level,
+              bonus: p.bonus,
+              connectionId: p.connectionId
             } as PlayerModel);
         });
         var t: Tabs = this.navCtrl.parent;

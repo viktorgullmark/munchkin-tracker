@@ -22,9 +22,9 @@ namespace MunchkinTrackerApi.Hubs
             _gameService = gameService;
         }
 
-        public void LevelChanged(string gameCode, Player player)
+        public async Task LevelChanged(string gameCode, Player player)
         {
-
+            await _gameService.UpdatePlayer(player, gameCode);
             Clients.OthersInGroup(gameCode).LevelChanged(player);
         }
 
@@ -41,6 +41,14 @@ namespace MunchkinTrackerApi.Hubs
         public async Task<Game> CreateGame()
         {
             return await _gameService.CreateGame();
+        }
+
+        public async Task<IEnumerable<Player>> RejoinGame(string gameCode, string connectionId)
+        {
+            await _gameService.RemovePlayer(connectionId, gameCode);
+            var player = await _gameService.GetPlayerByConnectionId(connectionId, gameCode);
+            await _gameService.AddPlayer(player, Context.ConnectionId, gameCode);
+            return await _gameService.GetPlayersByCode(gameCode);
         }
 
         public async Task<IEnumerable<Player>> JoinGame(JoinModel model)
@@ -73,9 +81,9 @@ namespace MunchkinTrackerApi.Hubs
             }
         }
 
-        public void UpdatePlayer(JoinModel model)
+        public async Task UpdatePlayer(JoinModel model)
         {
-            LevelChanged(model.GameCode, model.Player);
+            await LevelChanged(model.GameCode, model.Player);
         }
     }
 }

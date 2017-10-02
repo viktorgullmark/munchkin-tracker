@@ -46,7 +46,7 @@ export class JoinGamePage {
       flavor: this.joinForm.controls.flavorText.value,
       gender: this.joinForm.controls.gender.value,
       level: 1,
-      bonus: 1,
+      bonus: 0,
       connectionId: ''
     } as PlayerModel;
     this.gameProvider.enterGame({ player: player, gameCode: gameCode } as JoinModel).then(res => {
@@ -60,9 +60,9 @@ export class JoinGamePage {
             name: p.name,
             flavor: p.flavor,
             gender: p.gender,
-            level: 1,
-            bonus: 1,
-            connectionId: ''
+            level: p.level,
+            bonus: p.bonus,
+            connectionId: p.connectionId
           } as PlayerModel);
         });
         var t: Tabs = this.navCtrl.parent;

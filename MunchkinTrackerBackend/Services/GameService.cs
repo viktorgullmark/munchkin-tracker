@@ -35,6 +35,11 @@ namespace MunchkinTrackerBackend.Services
             return await GameRepo.FindPlayerByName(playerName, gameCode);
         }
 
+        public async Task<Player> GetPlayerByConnectionId(string connectionId, string gameCode)
+        {
+            return await GameRepo.FindPlayerByConnectionId(connectionId, gameCode);
+        }
+
         public async Task UpdatePlayer(Player player, string gameCode)
         {
             var game = await GameRepo.FindByCode(gameCode);
@@ -61,8 +66,8 @@ namespace MunchkinTrackerBackend.Services
                 ConnectionId = connectionId,
                 Name = player.Name,
                 Flavor = player.Flavor,
-                Bonus = 0,
-                Level = 0,
+                Bonus = player.Bonus,
+                Level = player.Level,
                 Gender = player.Gender
             });
             await GameRepo.Update(game);
