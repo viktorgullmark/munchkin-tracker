@@ -31,6 +31,12 @@ namespace MunchkinTrackerBackend.Repositories
             return game.Players.FirstOrDefault(x => x.Name == playerName);
         }
 
+        public async Task<Player> FindPlayerByConnectionId(string connectionId, string gameCode)
+        {
+            var game = await _context.Cache.GetObjectAsync<Game>($"game:{gameCode}");
+            return game.Players.FirstOrDefault(x => x.ConnectionId == connectionId);
+        }
+
         public async Task<bool> NameTaken(string playerName, string gameCode)
         {
             var game = await _context.Cache.GetObjectAsync<Game>($"game:{gameCode}");

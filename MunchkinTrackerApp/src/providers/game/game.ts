@@ -8,10 +8,14 @@ import { BroadcastEventListener, ISignalRConnection, SignalR } from 'ng2-signalr
 
 import { GameModel } from '../../models/game.model';
 import { PlayerModel } from '../../models/player.model';
-import { InterceptorProvider } from '../interceptor/interceptor';
 
 @Injectable()
 export class GameProvider {
+
+  public test = false;
+  public id = '';
+  public disconnected = false;
+  public status: any;
 
   currentGame: GameModel;
   currentPlayer: PlayerModel;
@@ -20,23 +24,40 @@ export class GameProvider {
   private url: string;
   private connection: ISignalRConnection;
 
-  constructor(private interceptorProvider: InterceptorProvider, private signalR: SignalR, private alertCtrl: AlertController) {
+  constructor(private signalR: SignalR, private alertCtrl: AlertController) {
     this.url = 'api/Games/';
     this.signalR.connect().then((c) => {
       // open initial connection to signalr and save in this scope
       this.connection = c;
+      localStorage.setItem('connectionId', this.connection.id);
+
+      setInterval(() => {
+        c.start().then(() => {
+          const oldId = localStorage.getItem('connectionId')
+          if(c.id !== oldId) {
+            this.rejoinGame(oldId).then(() => {
+              // set timeout 2-3 sec with loading indicator
+            })
+          }
+        });
+      }, 5000);
 
       // register events to listen to
       let onPlayerJoined$ = new BroadcastEventListener<PlayerModel>('PlayerJoined');
       let onPlayerLeft$ = new BroadcastEventListener<PlayerModel>('PlayerLeft');
       let onLevelChanged$ = new BroadcastEventListener<PlayerModel>('LevelChanged');
       let onErrorReceived$ = new BroadcastEventListener<string>('ErrorMessage');
+      let onDisconnected$ = new BroadcastEventListener<string>('Disconnected');
 
       c.listen(onPlayerJoined$);
       c.listen(onPlayerLeft$);
       c.listen(onLevelChanged$);
       c.listen(onErrorReceived$);
+      c.listen(onDisconnected$);
 
+      onDisconnected$.subscribe(() => {
+        this.disconnected = true;
+      });
       onPlayerJoined$.subscribe((player: PlayerModel) => {
         this.currentGame.players.push(player);
         this.updatePreviousNext();
@@ -45,7 +66,7 @@ export class GameProvider {
         this.currentGame.players = this.currentGame.players.filter(item => item.name !== player.name);
         if (this.currentPlayer.name === player.name) {
           this.currentPlayer = this.currentGame.players[0];
-        } 
+        }
         this.updatePreviousNext();
       });
       onLevelChanged$.subscribe((player: PlayerModel) => {
@@ -68,7 +89,9 @@ export class GameProvider {
         });
         alert.present();
       });
+
     });
+
   }
   public updatePreviousNext() {
     if (this.currentGame.players[this.currentGame.players.indexOf(this.currentPlayer) - 1] !== undefined) {
@@ -96,6 +119,23 @@ export class GameProvider {
 
   public leaveGame() {
     return this.connection.invoke('LeaveGame', this.currentGame.code).then((data) => {
+    }).catch(error => console.log(error));
+  }
+
+  public rejoinGame(connectionId) {
+    return this.connection.invoke('RejoinGame', this.currentGame.code, connectionId).then((data) => {
+        this.currentGame.players = [];
+        data.forEach(p => {
+          this.currentGame.players.push(
+            {
+              name: p.name,
+              flavor: p.flavor,
+              gender: p.gender,
+              level: p.level,
+              bonus: p.bonus,
+              connectionId: ''
+            } as PlayerModel);
+        });
     }).catch(error => console.log(error));
   }
 

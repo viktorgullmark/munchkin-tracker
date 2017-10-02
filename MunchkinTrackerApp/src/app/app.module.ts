@@ -7,7 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SignalRModule } from 'ng2-signalr';
-import { SignalRConfiguration } from 'ng2-signalr';
+import { SignalRConfiguration, ConnectionTransport  } from 'ng2-signalr';
 
 import { CurrentGamePage } from '../pages/current-game/current-game';
 import { StartPage } from '../pages/start/start';
@@ -61,7 +61,8 @@ export function createConfig(): SignalRConfiguration {
   c.hubName = 'GameHub';
   c.withCredentials = false;
   c.jsonp = true;
-  c.url = 'http://localhost:55787/';
+  c.url = 'http://api.munchkintracker.com:1337/';
   c.logging = true;
+  c.transport = [new ConnectionTransport('webSockets'), new ConnectionTransport('longPolling')];
   return c;
 }

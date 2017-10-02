@@ -26,6 +26,7 @@ namespace MunchkinTrackerApi
             settings.ContractResolver = new SignalRContractResolver();
             var serializer = JsonSerializer.Create(settings);
             GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
+            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromMinutes(30);
         }
     }
 }

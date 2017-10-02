@@ -16,6 +16,7 @@ namespace MunchkinTrackerApi
                 EnableJavaScriptProxies = true
             };
 
+            
             app.MapSignalR("/signalr", config);
         }
     }
