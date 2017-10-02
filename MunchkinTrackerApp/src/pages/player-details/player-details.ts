@@ -1,9 +1,7 @@
-import { JoinModel } from '../../models/join.model';
-import { GameProvider } from '../../providers/game/game';
-import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, NavParams, Tabs } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 
-import { PlayerModel } from '../../models/player.model';
+import { GameProvider } from '../../providers/game/game';
 
 @Component({
   selector: 'page-player-details',

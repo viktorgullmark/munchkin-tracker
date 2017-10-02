@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavController, AlertController, NavParams, Tabs } from 'ionic-angular';
+import { AlertController, NavController, NavParams, Tabs } from 'ionic-angular';
 
 import { GameModel } from '../../models/game.model';
 import { JoinModel } from '../../models/join.model';
 import { PlayerModel } from '../../models/player.model';
 import { GameProvider } from '../../providers/game/game';
-import { CurrentGamePage } from '../current-game/current-game';
 
 @Component({
   selector: 'page-new-game',

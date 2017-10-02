@@ -1,10 +1,9 @@
-import { StartPage } from '../start/start';
 import { Component } from '@angular/core';
-import { NavController, AlertController, NavParams, Tabs } from 'ionic-angular';
+import { AlertController, NavController, NavParams, Tabs } from 'ionic-angular';
 
 import { GameProvider } from '../../providers/game/game';
 import { PlayerDetailsPage } from '../player-details/player-details';
-import { LowerCasePipe } from '@angular/common';
+
 @Component({
   selector: 'page-current-game',
   templateUrl: 'current-game.html'
