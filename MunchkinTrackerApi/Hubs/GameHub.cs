@@ -13,9 +13,14 @@ using MunchkinTrackerBackend.Services;
 namespace MunchkinTrackerApi.Hubs
 {
     [EnableCors("*", "*", "*")]
-    public class GameHub : Hub<IClient>
+    public class GameHub : Hub
     {
-        private readonly GameService _gameService = new GameService();
+        private GameService _gameService;
+
+        public GameHub(GameService gameService)
+        {
+            _gameService = gameService;
+        }
 
         public void LevelChanged(string gameCode, Player player)
         {
@@ -72,13 +77,5 @@ namespace MunchkinTrackerApi.Hubs
         {
             LevelChanged(model.GameCode, model.Player);
         }
-    }
-
-    public interface IClient
-    {
-        void PlayerJoined(Player player);
-        void PlayerLeft(Player player);
-        void LevelChanged(Player player);
-        void ErrorMessage(string message);
     }
 }

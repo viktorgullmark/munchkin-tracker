@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using MunchkinTrackerApi.Hubs;
+using MunchkinTrackerBackend.Services;
 using Owin;
 
 [assembly: OwinStartup(typeof(MunchkinTrackerApi.Startup))]
@@ -15,6 +17,10 @@ namespace MunchkinTrackerApi
                 EnableJSONP = true,
                 EnableJavaScriptProxies = true
             };
+
+            GlobalHost.DependencyResolver.Register(
+                typeof(GameHub),
+                () => new GameHub(new GameService()));
 
             app.MapSignalR("/signalr", config);
         }
