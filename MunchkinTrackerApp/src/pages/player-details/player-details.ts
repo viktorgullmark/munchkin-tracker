@@ -21,15 +21,17 @@ export class PlayerDetailsPage {
   }
 
   changeLevel(value) {
-    this.gameProvider.currentPlayer.level = value;
-    let model = { player: this.gameProvider.currentPlayer, gameCode: this.gameCode };
-    this.gameProvider.updatePlayer(model).then(res => { });
+    let player = this.gameProvider.currentPlayer;
+    player.level = value;
+    let model = { player: player, gameCode: this.gameCode };
+    this.gameProvider.updatePlayer(model).then(res => {});
   }
 
   changeBonus(value) {
-    this.gameProvider.currentPlayer.bonus = value;
-    let model = { player: this.gameProvider.currentPlayer, gameCode: this.gameCode };
-    this.gameProvider.updatePlayer(model).then(res => { });
+    let player = this.gameProvider.currentPlayer;
+    player.bonus = value;
+    let model = { player: player, gameCode: this.gameCode };
+    this.gameProvider.updatePlayer(model).then(res => {});
   }
 
   goToPrevious() {
