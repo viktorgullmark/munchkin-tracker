@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
-import { BroadcastEventListener, ISignalRConnection, SignalR } from 'ng2-signalr';
+import { BroadcastEventListener, ISignalRConnection, SignalR, ConnectionStatus } from 'ng2-signalr';
 
 import { GameModel } from '../../models/game.model';
 import { PlayerModel } from '../../models/player.model';
@@ -12,11 +12,7 @@ import { PlayerModel } from '../../models/player.model';
 @Injectable()
 export class GameProvider {
 
-  public test = false;
-  public id = '';
-  public disconnected = false;
-  public status: any;
-
+  status: ConnectionStatus;
   currentGame: GameModel;
   currentPlayer: PlayerModel;
   previousPlayer: PlayerModel;
@@ -26,20 +22,25 @@ export class GameProvider {
 
   constructor(private signalR: SignalR, private alertCtrl: AlertController) {
     this.url = 'api/Games/';
-    this.signalR.connect().then((c) => {
+    let conx = this.signalR.createConnection();
+    conx.status.subscribe((s) => this.status = s);
+    conx.start().then((c) => {
       // open initial connection to signalr and save in this scope
       this.connection = c;
       localStorage.setItem('connectionId', this.connection.id);
 
       setInterval(() => {
-        c.start().then(() => {
-          const oldId = localStorage.getItem('connectionId')
-          if(c.id !== oldId) {
-            this.rejoinGame(oldId).then(() => {
-              // set timeout 2-3 sec with loading indicator
-            })
-          }
-        });
+        // if not connected
+        if (this.status.value !== 1) {
+          c.start().then(() => {
+            const oldId = localStorage.getItem('connectionId')
+            if (c.id !== oldId) {
+              this.rejoinGame(oldId).then(() => {
+                // set timeout 2-3 sec with loading indicator
+              })
+            }
+          });
+        }
       }, 5000);
 
       // register events to listen to
@@ -55,9 +56,6 @@ export class GameProvider {
       c.listen(onErrorReceived$);
       c.listen(onDisconnected$);
 
-      onDisconnected$.subscribe(() => {
-        this.disconnected = true;
-      });
       onPlayerJoined$.subscribe((player: PlayerModel) => {
         this.currentGame.players.push(player);
         this.updatePreviousNext();
@@ -89,8 +87,11 @@ export class GameProvider {
         });
         alert.present();
       });
-
     });
+    // this.signalR.connect().then((c) => {
+
+
+    // });
 
   }
   public updatePreviousNext() {
@@ -124,18 +125,18 @@ export class GameProvider {
 
   public rejoinGame(connectionId) {
     return this.connection.invoke('RejoinGame', this.currentGame.code, connectionId).then((data) => {
-        this.currentGame.players = [];
-        data.forEach(p => {
-          this.currentGame.players.push(
-            {
-              name: p.name,
-              flavor: p.flavor,
-              gender: p.gender,
-              level: p.level,
-              bonus: p.bonus,
-              connectionId: ''
-            } as PlayerModel);
-        });
+      this.currentGame.players = [];
+      data.forEach(p => {
+        this.currentGame.players.push(
+          {
+            name: p.name,
+            flavor: p.flavor,
+            gender: p.gender,
+            level: p.level,
+            bonus: p.bonus,
+            connectionId: ''
+          } as PlayerModel);
+      });
     }).catch(error => console.log(error));
   }
 
