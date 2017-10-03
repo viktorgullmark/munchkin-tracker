@@ -1,5 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -13,50 +12,52 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 @import "./theme/variables";
-
 .page-content {
-    background: $content-bg-color;
+  background: $content-bg-color;
 }
 
 .card {
-    margin: 0;
-    margin-bottom: 10px;
-    width: 100%;
+  margin: 0;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .alert-button {
-    color: black !important;
+  color: black !important;
 }
 
 .invalid {
-    border: 1px solid #ea6153;
+  border: 1px solid #ea6153;
 }
 
 .error-text {
-    color: #d13636 !important;
+  color: #d13636 !important;
 }
 
 ion-label {
-    min-width: 120px;
-    color: black !important;
+  min-width: 120px;
+  color: black !important;
 }
 
 ion-item {
-    background: $secondary-color !important;
+  background: $secondary-color !important;
 }
 
 .btn-icon {
-    position: absolute !important;
-    right: 10px !important;
-}
-ion-card {
-    ion-row {
-        background: $primary-color !important;
-    }
+  position: absolute !important;
+  right: 10px !important;
 }
 
-[placeholder]{
-    text-overflow:ellipsis;
+ion-card {
+  ion-item {
+    background: $primary-color !important;
+  }
+  ion-row {
+    background: $secondary-color !important;
+  }
+}
+
+[placeholder] {
+  text-overflow: ellipsis;
 }

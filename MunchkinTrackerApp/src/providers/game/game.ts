@@ -30,11 +30,7 @@ export class GameProvider {
       this.connection = c;
       localStorage.setItem('connectionId', this.connection.id);
 
-      setInterval(() => {
-        if (this.status.value !== 1) {
-          this.resyncGame();
-        }
-      }, 5000);
+      this.resyncGame();
 
       // register events to listen to
       let onPlayerJoined$ = new BroadcastEventListener<PlayerModel>('PlayerJoined');
@@ -84,20 +80,20 @@ export class GameProvider {
   }
 
   public resyncGame() {
-    this.isSyncing = true;
     this.connection.start().then(() => {
       const oldId = localStorage.getItem('connectionId')
       if (this.connection.id !== oldId) {
+        this.isSyncing = true;
         this.rejoinGame(oldId).then(() => {
           setTimeout(() => {
             this.isSyncing = false;
-          }, 500);
+          }, 4000);
           return;
         })
       }
       setTimeout(() => {
         this.isSyncing = false;
-      }, 500);
+      }, 1000);
     });
   }
 
