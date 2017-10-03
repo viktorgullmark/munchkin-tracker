@@ -19,6 +19,13 @@ export class CurrentGamePage {
   ngOnInit() {
     console.log(this.gameProvider.currentGame.players);
   }
+  public hideOverlay() {
+    this.gameProvider.isSyncing = false;
+  }
+  resync(){
+    this.gameProvider.isSyncing = true;
+    this.gameProvider.resyncGame();
+  }
   reorderItems(indexes) {
     let element = this.gameProvider.currentGame.players[indexes.from];
     this.gameProvider.currentGame.players.splice(indexes.from, 1);

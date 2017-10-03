@@ -1,3 +1,6 @@
+<div class="my-overlay" padding [hidden]="!gameProvider.isSyncing">
+    <img class="inner" width="100" src="./../../assets/img/loading.gif"/>
+</div>
 <ion-header>
   <ion-navbar hideBackButton="true" color="nav-bg">
     <ion-buttons start>
@@ -36,6 +39,10 @@
 </ion-content>
 <ion-footer no-shadow>
   <ion-toolbar position="bottom" color="nav-bg">
+    <button ion-button icon-end full (click)="resync()">
+      Resync game
+      <ion-icon name="refresh" class="btn-icon"></ion-icon>
+    </button>
     <button ion-button icon-end full (click)="leaveGame()">
       Leave game
       <ion-icon name="exit" class="btn-icon"></ion-icon>

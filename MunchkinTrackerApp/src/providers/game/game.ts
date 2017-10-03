@@ -19,6 +19,7 @@ export class GameProvider {
   nextPlayer: PlayerModel;
   private url: string;
   private connection: ISignalRConnection;
+  public isSyncing = false;
 
   constructor(private signalR: SignalR, private alertCtrl: AlertController) {
     this.url = 'api/Games/';
@@ -30,16 +31,8 @@ export class GameProvider {
       localStorage.setItem('connectionId', this.connection.id);
 
       setInterval(() => {
-        // if not connected
         if (this.status.value !== 1) {
-          c.start().then(() => {
-            const oldId = localStorage.getItem('connectionId')
-            if (c.id !== oldId) {
-              this.rejoinGame(oldId).then(() => {
-                // set timeout 2-3 sec with loading indicator
-              })
-            }
-          });
+          this.resyncGame();
         }
       }, 5000);
 
@@ -88,12 +81,26 @@ export class GameProvider {
         alert.present();
       });
     });
-    // this.signalR.connect().then((c) => {
-
-
-    // });
-
   }
+
+  public resyncGame() {
+    this.isSyncing = true;
+    this.connection.start().then(() => {
+      const oldId = localStorage.getItem('connectionId')
+      if (this.connection.id !== oldId) {
+        this.rejoinGame(oldId).then(() => {
+          setTimeout(() => {
+            this.isSyncing = false;
+          }, 500);
+          return;
+        })
+      }
+      setTimeout(() => {
+        this.isSyncing = false;
+      }, 500);
+    });
+  }
+
   public updatePreviousNext() {
     if (this.currentGame.players[this.currentGame.players.indexOf(this.currentPlayer) - 1] !== undefined) {
       this.previousPlayer = this.currentGame.players[this.currentGame.players.indexOf(this.currentPlayer) - 1];
